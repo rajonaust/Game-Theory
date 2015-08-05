@@ -1,0 +1,38 @@
+// Nim
+// Given a set of ( arr ) N piles with number of stairs . Each move a player have to select a Pile ( i ) and remove any numbers ( x > 0 ) of stairs from that pile if ( arr[i]-x>=0 ) .
+// Player 1 turns first than player 2 and continue by altering their turns . Player who does not make a valid move , lose the the match .
+
+#include <iostream>
+using namespace std;
+
+int N , arr[50] , Nim = 0 ;
+
+int main()
+{
+    cin >> N ;
+    for(int i=1;i<=N;i++)
+    {
+        cin >> arr[i] ;
+        Nim^=arr[i];
+    }
+
+    if(Nim) cout << "Player 1\n" << endl ;
+    else cout << "Player 2\n" << endl ;
+    return 0;
+}
+
+/*
+2
+3 5
+*/
+/*
+Player 1
+*/
+
+/*
+2
+5 5
+*/
+/*
+Player 2
+*/
