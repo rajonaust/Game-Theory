@@ -4,12 +4,17 @@
 
 #include <iostream>
 #include <set>
+#include <algorithm>
 using namespace std;
 
-int N , K , Nim = 0 , arr[50] , P[50] ;
+int N , K , Nim = 0 , arr[50] , P[50] , dp[100000+10] ;
 
 int grundy_number(int value)
 {
+	int &ret = dp[value] ;
+	if(ret!=-1) return ret ;
+	ret = 0 ;
+
     set <int> S ;
 
     for(int i=1;i<=K;i++)
@@ -17,7 +22,6 @@ int grundy_number(int value)
         if(value-arr[i]>=0) S.insert(grundy_number(value-arr[i]));
     }
 
-    int ret = 0 ;
     while(S.count(ret)) ret++;
 
     return ret ;
@@ -25,6 +29,8 @@ int grundy_number(int value)
 
 int main()
 {
+    fill(dp,dp+100005,-1);
+
     cin >> N ;
     for(int i=1;i<=N;i++) cin >> P[i] ;
 
