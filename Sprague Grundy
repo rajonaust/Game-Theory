@@ -1,0 +1,60 @@
+// Sprague Grundy Theorem
+// Given s set ( P ) of N piles with number of stairs and a set ( arr ) of K moves . Each move a player have to select a number ( x -> arr ) from the set and select a pile ( i -> P ) and perform ( P[i]-x ) if ( P[i]-x>=0 ) .
+// Player 1 turns first than player 2 and continue by altering their turns . Player who don't make a valid move , lose the the match .
+
+#include <iostream>
+#include <set>
+using namespace std;
+
+int N , K , Nim = 0 , arr[50] , P[50] ;
+
+int grundy_number(int value)
+{
+    set <int> S ;
+
+    for(int i=1;i<=K;i++)
+    {
+        if(value-arr[i]>=0) S.insert(grundy_number(value-arr[i]));
+    }
+
+    int ret = 0 ;
+    while(S.count(ret)) ret++;
+
+    return ret ;
+}
+
+int main()
+{
+    cin >> N ;
+    for(int i=1;i<=N;i++) cin >> P[i] ;
+
+    cin >> K ;
+    for(int i=1;i<=K;i++) cin >> arr[i] ;
+
+    for(int i=1;i<=N;i++) Nim^=grundy_number(P[i]);
+
+    if(Nim) cout << "Player 1\n" << endl ;
+    else cout << "Player 2\n" << endl ;
+
+    return 0;
+}
+
+/*
+2
+4 4
+2
+1 4
+*/
+/*
+Player 2
+*/
+
+/*
+3
+5 9 10
+3
+1 4 8
+*/
+/*
+Player 1
+*/
